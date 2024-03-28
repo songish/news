@@ -1,5 +1,6 @@
 ---
-
+import { getCollection } from "astro:content";
+const allNewsPosts = await getCollection("news");
 ---
 
 <html lang="en">
@@ -11,8 +12,18 @@
     <title>Songish News</title>
   </head>
   <body>
-    <div class="max-w-2xl">
-      <h1>Songish News</h1>
+    <div class="max-w-2xl ml-auto mr-auto mt-24">
+      <h1 class="text-5xl font-bold">Songish News</h1>
+      {
+        allNewsPosts.map((post) => (
+          <a href={`post/${post.slug}`} class="mt-8">
+            <article>
+              <h2 class="text-3xl font-bold">{post.data.title}</h2>
+              <p class="mt-4">{post.data.description}</p>
+            </article>
+          </a>
+        ))
+      }
     </div>
   </body>
 </html>
